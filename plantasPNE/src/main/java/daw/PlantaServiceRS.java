@@ -24,7 +24,7 @@ public class PlantaServiceRS {
 	@Path("/nome/{id}")
 	@Produces("text/html")
 	public String getNome(@PathParam("id") Long id) {
-		return "<h1>"+userService.getByID(id).getNome()+"</h1>";
+		return "<h1>"+plantaService.getByID(id).getNome()+"</h1>";
 	}
 	// http://localhost:8080/ifoto/rest/user/list
 	@GET
@@ -64,8 +64,8 @@ public class PlantaServiceRS {
 		return plantaService;
 	}
 	
-	public void setPlantaService(PlantaServices userService) {
-		this.plantaService = userService;
+	public void setPlantaService(PlantaServices plantaService) {
+		this.plantaService = plantaService;
 	}
 	
 }
