@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Gerenciador</title>
+</h:head>
+
+<h:body>
+	<h:form>
+		<p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+		<p:outputLabel value="Nome: " for="itNomeUsuario" />
+		<p:inputText id="itNomeUsuario"
+			value="#{indexBeanUsuario.usuario.nome}" label="Nome Completo" />
+		<br />
+
+		<p:outputLabel value="Email: " for="itEmailUsuario" />
+		<p:inputText id="itEmailUsuario"
+			value="#{indexBeanUsuario.usuario.email}" label="Email" />
+		<br />
+
+		<p:outputLabel value="Senha: " for="itSenha" />
+		<p:password id="itSenha" value="#{indexBeanUsuario.usuario.senha}"
+			label="Senha" />
+
+		<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+			<p:outputLabel for="itdeficiente" value="Deficiente:" />
+			<p:selectOneRadio id="itdeficiente"
+				value="#{indexBeanUsuario.usuario.deficiente}">
+				<f:selectItem itemLabel="Sim" itemValue="Sim" />
+				<f:selectItem itemLabel="Não" itemValue="Não" />
+			</p:selectOneRadio>
+		</h:panelGrid>
+
+		<p:commandButton id="botaoEntrar" value="entrar"
+			action="#{indexBeanUsuario.adicionarUsu()}" update="usuariosTable"
+			ajax="false" />
+
+	</h:form>
+	<h:form>
+		<p:dataTable id="usuariosTable" border="1" var="usu"
+			value="#{indexBeanUsuario.usuarios}">
+			<f:facet name="header">Usuarios</f:facet>
+			<p:column>
+				<f:facet name="header">Nome</f:facet>
+				<h:outputText value="#{usu.nome}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">Email</f:facet>
+				<h:outputText value="#{usu.email}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">Deficiente</f:facet>
+				<h:outputText value="#{usu.deficiente}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">Opções</f:facet>
+
+				<p:commandButton id="botaoRemover" value="remover"
+					update="usuariosTable"
+					action="#{indexBeanUsuario.removerUsu(usu.id_usuario)}">
+				</p:commandButton>
+
+				<p:commandButton id="botaoEditar" value="editar"
+					update="usuariosTable" ajax="false"
+					action="#{indexBeanUsuario.editarUsu(usu.id_usuario)}">
+				</p:commandButton>
+
+			</p:column>
+		</p:dataTable>
+	</h:form>
+</h:body>
+
+</html>
